@@ -1,41 +1,21 @@
-from datetime import datetime
+from postNewUser import cadastrar_usuario
 
-print('Olá, esse é o sistema XYZ, vamos te cadastrar, OK?')
+# Lista para armazenar os usuários
+lista_usuarios = []
 
-nome = input('Vamos começar com o seu nome, qual é o seu nome e sobrenome? ')
-idade = int(input('Por favor, qual a sua idade? '))
-peso = float(input('Para nós, o seu peso é necessário, por favor, poderia dizê-lo? '))
+# Obtendo a quantidade de usuários a serem cadastrados
+try:
+    quantidade = int(input("Quantas pessoas você deseja cadastrar? "))
+except ValueError:
+    print("Valor inválido. Por favor, digite um número inteiro.")
+    quantidade = 0
 
-resposta = input("Você gostaria de um apelido? Se sim, é só dizer, se não só dê enter: ").strip()
-if resposta:
-    apelido = resposta
-    apelidoBool = True
-    print(f"Apelido definido: {apelido}")
-else:
-    apelido = None
-    apelidoBool = False
-    print("Nenhum apelido foi definido.")
+# Coletando dados de cada usuário
+for _ in range(quantidade):
+    usuario = cadastrar_usuario()
+    lista_usuarios.append(usuario)
 
-while True:
-    try:
-        nascimento_str = input("Digite o dia que você nasceu no formato DD/MM/AAAA: ")
-        nascimento = datetime.strptime(nascimento_str, "%d/%m/%Y")
-        dia = nascimento.day
-        mes = nascimento.month
-        ano = nascimento.year
-        break  # Se a data for válida, saia do loop
-    except ValueError:
-        print("Formato inválido. Por favor, tente novamente.")
-
-# Criando o dicionário de usuário com os dados coletados
-usuario = {
-    'nome': nome,
-    'idade': idade,
-    'peso': peso,
-    'apelidoBool': apelidoBool,
-    'apelido': apelido,
-    'dataNascimento': '{0} de {1} de {2}'.format(dia, mes, ano)
-}
-
-# Exibindo o dicionário do usuário
-print(usuario)
+# Exibindo a lista de usuários cadastrados
+print("\nUsuários cadastrados:")
+for usuario in lista_usuarios:
+    print(usuario)
